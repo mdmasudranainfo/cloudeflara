@@ -59,13 +59,15 @@ const DashboardMenu = () => {
       items: [
         {
           title: "Security Insights",
-          to: "/analytics",
+          to: "/SecurityInsights",
         },
         {
           title: "Infrastructure",
+          to: "/Infrastructure",
         },
         {
           title: "Investigate",
+          to: "/Investigate",
         },
       ],
       icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
@@ -74,6 +76,7 @@ const DashboardMenu = () => {
     {
       title: "Turnstile",
       collapsed: true,
+      to: "/TurnstileSites",
       items: [],
       // icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
       icone: <TfiReload className="text-xl" />,
@@ -88,6 +91,7 @@ const DashboardMenu = () => {
     {
       title: "Area 1",
       collapsed: true,
+      to: "/Area",
       items: [],
       // icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
       icone: <RiMailSendLine className="text-xl" />,
