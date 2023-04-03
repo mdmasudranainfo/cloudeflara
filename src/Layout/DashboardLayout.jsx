@@ -5,21 +5,25 @@ import Footer from "../Components/Footer/Footer";
 import { MenuContext } from "../Context/AllContext";
 
 const DashboardLayout = () => {
-  const { openMenu } = useContext(MenuContext);
+  const { openMenu, openText, setOpenText } = useContext(MenuContext);
   return (
     <div className="relative overflow-hidden ">
       <div
         className={`${
           openMenu ? "block" : "hidden"
-        } lg:ml-[-500px] ml-0 w-[260px]=  bg-white z-50 absolute top-0 left-0 `}
+        } lg:ml-[-500px] ml-0 w-[260px]  bg-white z-50 absolute top-0 left-0 `}
       >
-        <DashboardMenu className="" />
+        <DashboardMenu />
       </div>
       <div className="flex ">
         {/* dashboard menu  */}
 
         <div
-          className={`bg-white  lg:block hidden top-0 left-0  lg:w-[260px] w-[50px] h-screen `}
+          onMouseEnter={() => setOpenText(false)}
+          // onMouseLeave={() => setOpenText(true)}
+          className={`bg-white  lg:block hidden top-0 left-0 ${
+            !openText ? "lg:w-[260px]" : "w-[80px] "
+          }   h-screen `}
         >
           <DashboardMenu className="" />
         </div>

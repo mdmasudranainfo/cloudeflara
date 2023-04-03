@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdWeb } from "react-icons/md";
 import { ImEarth } from "react-icons/im";
@@ -11,8 +11,14 @@ import { MdAnalytics } from "react-icons/md";
 import { BsSafe2 } from "react-icons/bs";
 
 import "./DashboardMenu.css";
+import { MenuContext } from "../../Context/AllContext";
 
 const DashboardMenu = () => {
+  const { openText, setOpenText } = useContext(MenuContext);
+  console.log(openText);
+  const ActiveClasses = ` overflow-hidden block m-4 mr-0 px-3 py-1 hover:bg-[#E9F7FB] text-[#0051c3] rounded-l-full decoration-dashed	hover:underline`;
+
+  const parentActiveClasses = `p-2 my-2  hover:bg-[#E9F7FB] rounded-l-full flex items-center gap-2   decoration-dashed	hover:underline text-[#0051c3] `;
   const [options, setOptions] = useState([
     {
       title: "Website",
@@ -24,18 +30,22 @@ const DashboardMenu = () => {
     {
       title: "Domain Registration",
       collapsed: true,
+      to: "/DomainRegistration",
+
       items: [
         {
           title: "Manage Domains",
+          to: "/DomainRegistration",
         },
       ],
-      to: "/DomainRegistration",
+
       icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
       icone: <ImEarth className="text-xl" />,
     },
     {
       title: "Analytics & Logs",
       collapsed: true,
+      to: "/analytics",
       items: [
         {
           title: "Account Analytics",
@@ -56,6 +66,7 @@ const DashboardMenu = () => {
     {
       title: "Security Center",
       collapsed: true,
+      to: "/SecurityInsights",
       items: [
         {
           title: "Security Insights",
@@ -81,13 +92,13 @@ const DashboardMenu = () => {
       // icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
       icone: <TfiReload className="text-xl" />,
     },
-    {
-      title: "Zero Trust",
-      collapsed: true,
-      items: [],
-      // icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
-      icone: <AiOutlineSafety className="text-xl" />,
-    },
+    // {
+    //   title: "Zero Trust",
+    //   collapsed: true,
+    //   items: [],
+    //   // icone2: <MdOutlineArrowDropDown className="text-xl mt-[-5px]" />,
+    //   icone: <AiOutlineSafety className="text-xl" />,
+    // },
     {
       title: "Area 1",
       collapsed: true,
@@ -101,30 +112,51 @@ const DashboardMenu = () => {
   //
   const dropdownElements = options.map((option, index) => {
     return (
-      <div key={index} className="">
+      <div
+        key={index}
+        className={`${option?.title === "Turnstile" && "border-y"} pl-6`}
+      >
         <NavLink
           to={option?.to}
-          className="p-4 hover:bg-[#E9F7FB] rounded-l-full flex items-center gap-2   decoration-dashed	hover:underline text-[#002b67] "
+          className={({ isActive }) =>
+            isActive
+              ? `${parentActiveClasses} ${
+                  option?.items && "bg-[#ECF4FF] border-primary border"
+                } }`
+              : `${parentActiveClasses} `
+          }
           onClick={() => {
             const newOptions = [...options];
             newOptions[index].collapsed = !option?.collapsed;
             setOptions(newOptions);
+            setOpenText(false);
           }}
         >
-          <span> {option.icone}</span>
-          <span className=" "> {option?.title}</span>
-          <span className=" "> {option?.icone2}</span>
+          <span className=""> {option.icone}</span>
+          <span className={`${openText ? "hidden" : "block"}`}>
+            {" "}
+            {option?.title}
+          </span>
+          <span className={`${openText ? "hidden" : "block"}`}>
+            {" "}
+            {option?.icone2}
+          </span>
         </NavLink>
         {!option?.collapsed && (
-          <ul>
+          <ul className={`ml-4 ${openText ? "hidden" : "block"}`}>
             {option.items.map((item, index) => {
               return (
-                <li
-                  className="m-4 ml-8 px-3 py-1 hover:bg-[#E9F7FB] text-[#002b67] rounded-l-full decoration-dashed	hover:underline"
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${ActiveClasses}  border border-r-0 bg-[#ECF4FF] border-primary`
+                      : `${ActiveClasses} `
+                  }
+                  to={item?.to}
                   key={index}
                 >
-                  <NavLink to={item?.to}>{item?.title}</NavLink>
-                </li>
+                  <span>{item?.title}</span>
+                </NavLink>
               );
             })}
           </ul>
@@ -134,11 +166,18 @@ const DashboardMenu = () => {
   });
 
   return (
-    <div className="border text-[14px] h-screen ">
-      <p className="p-5 border border-r-0">mdmasude7@gmail.com</p>
+    <div className="border border-t-0 font-light text-[14px] h-screen bg-white">
+      <p className="p-5 border-b">mdmasude7@gmail.com</p>
 
       {/* manu items  */}
       {dropdownElements}
+
+      <button
+        onClick={() => setOpenText(!openText)}
+        className="btn btn-primary"
+      >
+        Open
+      </button>
     </div>
   );
 };
