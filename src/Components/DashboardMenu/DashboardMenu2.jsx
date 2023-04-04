@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { MdKeyboardDoubleArrowRight, MdWeb } from "react-icons/md";
+import { MdWeb } from "react-icons/md";
 import { ImEarth } from "react-icons/im";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { GrAnalytics } from "react-icons/gr";
@@ -9,15 +9,14 @@ import { AiOutlineSafety } from "react-icons/ai";
 import { RiMailSendLine } from "react-icons/ri";
 import { MdAnalytics } from "react-icons/md";
 import { BsSafe2 } from "react-icons/bs";
-import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 
 import "./DashboardMenu.css";
 import { MenuContext } from "../../Context/AllContext";
 
-const DashboardMenu = () => {
-  const { openText, setOpenText, Collapse, setCollapse } =
+const DashboardMenu2 = () => {
+  const { openText, setOpenText, openMenu, setOpenMenu } =
     useContext(MenuContext);
-  console.log(Collapse);
+  // console.log(openText);
   const ActiveClasses = ` overflow-hidden block m-4 mr-0 px-3 py-1 hover:bg-[#E9F7FB] text-[#0051c3] rounded-l-full decoration-dashed	hover:underline`;
 
   const parentActiveClasses = `p-2 my-2  hover:bg-[#E9F7FB] rounded-l-full flex items-center gap-2   decoration-dashed	hover:underline text-[#0051c3] `;
@@ -131,7 +130,7 @@ const DashboardMenu = () => {
             const newOptions = [...options];
             newOptions[index].collapsed = !option?.collapsed;
             setOptions(newOptions);
-            setOpenText(false);
+            setOpenMenu(!openMenu);
           }}
         >
           <span className=""> {option.icone}</span>
@@ -149,6 +148,7 @@ const DashboardMenu = () => {
             {option.items.map((item, index) => {
               return (
                 <NavLink
+                  onClick={() => setOpenMenu(!openMenu)}
                   className={({ isActive }) =>
                     isActive
                       ? `${ActiveClasses}  border border-r-0 bg-[#ECF4FF] border-primary`
@@ -168,37 +168,13 @@ const DashboardMenu = () => {
   });
 
   return (
-    <div className="border border-t-0 font-light text-[14px] h-screen bg-white relative">
-      <span className={`${openText ? "inline-block" : "hidden"} border-b`}>
-        <div className={` rounded-full p-3 mx-3 mb-2  bg-[#ECF4FF] text-xl`}>
-          MA
-        </div>
-      </span>
-      <p className={`${openText ? "hidden" : "block"} p-4 border-b`}>
-        mdmasude7@gmail.com
-      </p>
+    <div className="border border-t-0 font-light text-[14px] h-screen bg-white">
+      <p className="p-5 border-b">mdmasude7@gmail.com</p>
 
       {/* manu items  */}
       {dropdownElements}
-
-      <div className=" absolute bottom-20 left-0 w-full">
-        <div
-          onClick={() => setCollapse(!Collapse)}
-          className={`${Collapse ? "hidden" : "block"} flex items-center mx-5`}
-        >
-          <MdKeyboardDoubleArrowLeft className="text-primary text-3xl font-light" />
-          <span className={`${openText && "hidden"}`}> Collapse sidebar</span>
-        </div>
-        <div
-          onClick={() => setCollapse(!Collapse)}
-          className={`${Collapse ? "block" : "hidden"} flex items-center mx-5 `}
-        >
-          <MdKeyboardDoubleArrowRight className="text-primary text-3xl font-light" />
-          <span>Expand sidebar</span>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default DashboardMenu;
+export default DashboardMenu2;

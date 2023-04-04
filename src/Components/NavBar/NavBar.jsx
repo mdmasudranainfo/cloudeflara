@@ -25,7 +25,7 @@ const NavBar = () => {
             <AiOutlineMenu className="text-3xl" />
           </span>
 
-          <div className=" flex flex-col items-end">
+          <div className=" flex flex-col items-end ml-4">
             <img
               className="w-14 max"
               src="https://i.ibb.co/StLCSfT/Cloudflare-Logo.png"
