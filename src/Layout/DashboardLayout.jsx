@@ -11,9 +11,13 @@ const DashboardLayout = () => {
 
   const hoverEffect = () => {
     if (!Collapse) {
-      setOpenText(!openText);
+      setOpenText(false);
     }
-    // alert("hello");
+  };
+  const hoverEffect2 = () => {
+    if (!Collapse) {
+      setOpenText(true);
+    }
   };
   return (
     <div className="relative overflow-hidden ">
@@ -32,7 +36,7 @@ const DashboardLayout = () => {
 
         <div
           onMouseEnter={hoverEffect}
-          onMouseLeave={hoverEffect}
+          onMouseLeave={hoverEffect2}
           className={`bg-white  lg:block hidden top-0 left-0 parentMenu ${
             !openText ? "lg:w-[260px]" : "w-[80px] "
           }   h-screen `}
